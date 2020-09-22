@@ -4,7 +4,7 @@
   "description": "An application which will randomly suggest projects from the list of projects you have given",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "nodemon index.js"
   },
   "repository": {
     "type": "git",
@@ -19,12 +19,15 @@
   "homepage": "https://github.com/ayush5588/Select-Project#readme",
   "dependencies": {
     "bcrypt": "^5.0.0",
+    "connect-flash": "^0.1.1",
     "cookie-parser": "^1.4.5",
+    "cors": "^2.8.5",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "express-session": "^1.17.1",
     "mongodb": "^3.6.2",
     "mongoose": "^5.10.6",
+    "morgan": "^1.10.0",
     "sanitize-html": "^1.27.4",
     "shortid": "^2.2.15"
   },
