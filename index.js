@@ -22,6 +22,7 @@ app.use(session({
 
 app.use(express.static('public'));
 app.use(express.static(__dirname));
+app.set("views", __dirname + "/views"); 
 app.use(express.json());
 app.use(cookieParser());
 app.use(logger('dev'));
@@ -31,12 +32,21 @@ app.use(cors());
 
 app.set('view engine','ejs');
 
+app.use((req,res,next)=>{  // for removing the flash message after displaying it. 
+    res.locals.removeMessage = ()=>{   // removeMessage will be accessible globally
+        req.session.message = [];
+    }
+    next();
+});
+
 const project = require('./src/project/index');
 app.use('/project',project);
 
 app.get('/',(req,res)=>{
-    res.sendFile(path.join(__dirname+'/public/html/index.html'));
+    res.render('home');
 });
+
+
 
 const PORT = process.env.PORT || 8000;
 app.listen(PORT,(e)=>{

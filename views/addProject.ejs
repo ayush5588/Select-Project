@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Add Projects</title>
+        <meta name="description" content="Add your projects">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+    </head>
+    <body>
+        <form action="/project/add" method="POST">
+            <label>Email</label>
+            <input type="email" name="email">
+            <label>Title</label>
+            <input type="text" name="title">
+            <label>Description</label>
+            <textarea name="description"></textarea>
+            <input type="submit" value="Submit">
+        </form>
+        <%if(locals.message){%>
+            <div class="alert alert-success" role="alert">
+                <%=message.info%>
+            </div>
+            <%=removeMessage();%>
+        <%}%>
+    </body>
+</html>

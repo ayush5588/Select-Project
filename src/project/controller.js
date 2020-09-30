@@ -15,22 +15,44 @@ exports.addProject = (req,res)=>{
     const title = req.body.title;
     const description = req.body.description;
 
-    const project = new newProject({
-        uid: uid,
-        userEmail: userEmail,
-        title: title,
-        description: description
-    });
-
-    project
-    .save()
-    .then((data)=>{
-        res.json({response: data});
-        console.log(data);
+    newProject
+    .findOne({title: title})
+    .then((exists)=>{
+        if(exists){
+            req.flash('info',`${title} already exists in your list`);
+            res.locals.message = req.flash();
+            res.render('addProject');
+        }else{
+            const project = new newProject({
+                uid: uid,
+                userEmail: userEmail,
+                title: title,
+                description: description,
+                status: 0
+            });
+        
+            project
+            .save()
+            .then((data)=>{
+                //res.json({response: `Project ${title} has been added to your list`});
+                req.flash('info',`${title} has been added to your list`);
+                res.locals.message = req.flash();
+                res.render('addProject');
+                //console.log(data);
+            })
+            .catch((e)=>{
+                console.log(`Issue in saving the data: ${e}`);
+            });
+        }
     })
     .catch((e)=>{
-        console.log(`Issue in saving the data: ${e}`);
-    })
+        console.log(`Error in checking the db: ${e}`);
+        req.flash('info','Error occured. Please try again later');
+        res.locals.message = req.flash();
+        res.render('addProject');
+    });
+
+    
 }
 
 
@@ -162,5 +184,12 @@ exports.updateStatus = (req,res)=>{
 
 
 exports.getAllProjects = (req,res)=>{
-    
+    newProject
+    .find({})
+    .then((data)=>{
+        res.render('showProjects',{projects: data});
+    })
+    .catch((e)=>{
+        console.log(`Error in getting the data from db: ${e}`);
+    });
 }
