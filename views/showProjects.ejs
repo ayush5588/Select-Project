@@ -15,17 +15,57 @@
                     <li> <%= projects[i].description %> </li>
                     <% if(projects[i].status == 0) {%>
                         <li>Added</li>
+                        <form action="/project/updateStatus" method="POST"> 
+                            <label>Change the status</label>
+                            <select name="status" id="status">
+                                <option value="start">Start</option>
+                                <option value="completed">Completed</option>
+                            </select>
+                            </br>
+                            <label>Re-enter the name of the project</label>
+                            <input type="text" name="title">
+                            </br>
+                            <input type="submit" value="Change">
+                        </form>
+                        </br>
                     <%}%>
                     <% if(projects[i].status == 1) {%>
                         <li>Started</li>
+                        <form action="/project/updateStatus" method="POST"> 
+                            <label>Change the status</label>
+                            <select name="status" id="status">
+                                <option value="start">Restart</option>
+                                <option value="completed">Completed</option>
+                            </select>
+                            </br>
+                            <label>Re-enter the name of the project</label>
+                            <input type="text" name="title">
+                            </br>
+                            <input type="submit" value="Change">
+                        </form>
+                        </br>
                     <%}%>
                     <% if(projects[i].status == 2) {%>
                         <li>Completed</li>
+                        <form action="/project/updateStatus" method="POST"> 
+                            <label>Change the status</label>
+                            <select name="status" id="status">
+                                <option value="start">Restart</option>
+                            </select>
+                            </br>
+                            <label>Re-enter the name of the project</label>
+                            <input type="text" name="title">
+                            </br>
+                            <input type="submit" value="Change">
+                        </form>
+                        </br>
                     <%}%>
                 </ul>
                 </br>
             <% } %>
         </ul>
-        
+        <% if (locals.message) {%>
+            <p><b><%=message.info%></b></p>
+        <%}%>
     </body>
 </html>
