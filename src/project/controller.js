@@ -115,8 +115,9 @@ exports.updateStatus = (req,res)=>{
                     });
                 }else{
                     // The project doesn't exist in the completedProjects collection
+                    // This is the 1st time project is getting started
                     onGoingProjects
-                        .find({project: new mongodb.ObjectID(project_id)})
+                        .findOne({project: new mongodb.ObjectID(project_id)})
                         .then((data)=>{
                             if(data){
                                 // project already exists in the db
@@ -139,7 +140,7 @@ exports.updateStatus = (req,res)=>{
                                 });
                                 projectStarted
                                 .save()
-                                .then(()=>{
+                                .then((data)=>{
                                     console.log(`The project ${title} has been inserted into the onGoingProjects collection`);
                                     //res.json({code: 1,message: `The status of project ${title} has been updated`});
                                     newProject
@@ -190,7 +191,7 @@ exports.updateStatus = (req,res)=>{
             // checking whether the project exists in the onGoingProjects collection
             // if it does then remove it from there
             onGoingProjects
-            .find({project: new mongodb.ObjectID(project_id)})
+            .findOne({project: new mongodb.ObjectID(project_id)})
             .then((exists)=>{ 
                 if(exists){
                     onGoingProjects

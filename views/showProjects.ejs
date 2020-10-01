@@ -10,20 +10,18 @@
     <body>
         <ul>
             <% for (var i=0; i < projects.length; i++) {%>
-                <li> <b><%= projects[i].title %></b> </li>
+                <li id="project-title"> <b><%= projects[i].title %></b> </li>
                 <ul>
                     <li> <%= projects[i].description %> </li>
                     <% if(projects[i].status == 0) {%>
                         <li>Added</li>
                         <form action="/project/updateStatus" method="POST"> 
                             <label>Change the status</label>
+                            <input type="hidden" name="title" value='<%= projects[i].title %>' />
                             <select name="status" id="status">
                                 <option value="start">Start</option>
                                 <option value="completed">Completed</option>
                             </select>
-                            </br>
-                            <label>Re-enter the name of the project</label>
-                            <input type="text" name="title">
                             </br>
                             <input type="submit" value="Change">
                         </form>
@@ -33,13 +31,12 @@
                         <li>Started</li>
                         <form action="/project/updateStatus" method="POST"> 
                             <label>Change the status</label>
+                            <input type="hidden" name="title" value='<%= projects[i].title %>' />
                             <select name="status" id="status">
                                 <option value="start">Restart</option>
                                 <option value="completed">Completed</option>
                             </select>
-                            </br>
-                            <label>Re-enter the name of the project</label>
-                            <input type="text" name="title">
+                            
                             </br>
                             <input type="submit" value="Change">
                         </form>
@@ -49,12 +46,10 @@
                         <li>Completed</li>
                         <form action="/project/updateStatus" method="POST"> 
                             <label>Change the status</label>
+                            <input type="hidden" name="title" value='<%= projects[i].title %>' />
                             <select name="status" id="status">
                                 <option value="start">Restart</option>
                             </select>
-                            </br>
-                            <label>Re-enter the name of the project</label>
-                            <input type="text" name="title">
                             </br>
                             <input type="submit" value="Change">
                         </form>
