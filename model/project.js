@@ -7,7 +7,7 @@ const NewProject = new Schema({
     userEmail: {type: String,required: true},
     title: {type: String, unique: true, required: true},
     description: {type: String},
-    status: {type: Number,required: true}   // 0 = Added  1 = started  2 = completed
+    status: {type: Number,required: true}   // 0 = Added,  1 = started,  2 = completed
 },{timestamps: true});
 
 const OnGoingProjects = new Schema({
