@@ -6,6 +6,7 @@ const mongodb = require('mongodb');
 const newProject = require('../../model/project').newProject;
 const onGoingProjects = require('../../model/project').onGoingProjects;
 const completedProjects = require('../../model/project').completedProjects;
+const responses = require('../middleware/responses');
 
 // Adding a new project
 exports.addProject = (req,res)=>{
@@ -19,9 +20,7 @@ exports.addProject = (req,res)=>{
     .findOne({title: title})
     .then((exists)=>{
         if(exists){
-            req.flash('info',`${title} already exists in your list`);
-            res.locals.message = req.flash();
-            res.render('addProject');
+            responses.error(req,res,'info','addProject',`${title} already exists in your list`);
         }else{
             const project = new newProject({
                 uid: uid,
@@ -34,22 +33,17 @@ exports.addProject = (req,res)=>{
             project
             .save()
             .then((data)=>{
-                //res.json({response: `Project ${title} has been added to your list`});
-                req.flash('info',`${title} has been added to your list`);
-                res.locals.message = req.flash();
-                res.render('addProject');
-                //console.log(data);
+                responses.success(req,res,'info','addProject',`${title} has been added to your list`);
             })
             .catch((e)=>{
                 console.log(`Issue in saving the data: ${e}`);
+                responses.error(req,res,'info','addProject',`Error in saving ${title} to your list. Please try again later`);
             });
         }
     })
     .catch((e)=>{
         console.log(`Error in checking the db: ${e}`);
-        req.flash('info','Error occured. Please try again later');
-        res.locals.message = req.flash();
-        res.render('addProject');
+        responses.error(req,res,'info','addProject',`Error occured. Please try again later`);
     });
 
     
@@ -100,18 +94,22 @@ exports.updateStatus = (req,res)=>{
                                 })
                                 .catch((e)=>{
                                     console.log(`Error in getting the data from db: ${e}`);
+                                    responses.error(req,res,'info','showProjects',`Error occured. Please try again later`);
                                 });
                             })
                             .catch((e)=>{
                                 console.log(`Error: ${e}`);
+                                responses.error(req,res,'info','showProjects',`Error occured. Please try again later`);
                             });
                         })
                         .catch((e)=>{
                             console.log(`Error in saving the project in onGoingProjects collection: ${e}`);
+                            responses.error(req,res,'info','showProjects',`Error occured. Please try again later`);
                         });
                     })
                     .catch((e)=>{
-                        console.log(`Error in deleting the project ${title} from the completedProjects collection`);
+                        console.log(`Error in deleting the project ${title} from the completedProjects collection:${e}`);
+                        responses.error(req,res,'info','showProjects',`Error occured. Please try again later`);
                     });
                 }else{
                     // The project doesn't exist in the completedProjects collection
@@ -131,6 +129,7 @@ exports.updateStatus = (req,res)=>{
                                 })
                                 .catch((e)=>{
                                     console.log(`Error in getting the data from db: ${e}`);
+                                    responses.error(req,res,'info','showProjects',`Error in updating the status of ${title}. Please try again later`);
                                 });
 
                             }else{
@@ -156,29 +155,35 @@ exports.updateStatus = (req,res)=>{
                                         })
                                         .catch((e)=>{
                                             console.log(`Error in getting the data from db: ${e}`);
+                                            responses.error(req,res,'info','showProjects',`Error occured. Please try again later`);
                                         });
                                     })
                                     .catch((e)=>{
                                         console.log(`Error: ${e}`);
+                                        responses.error(req,res,'info','showProjects',`Error occured. Please try again later`);
                                     });
                                 })
                                 .catch((e)=>{
                                     console.log(`Error in saving the project in onGoingProjects collection: ${e}`);
+                                    responses.error(req,res,'info','showProjects',`Error occured. Please try again later`);
                                 });
                             }
                         })
                         .catch((e)=>{
                             console.log(`Error: ${e}`);
+                            responses.error(req,res,'info','showProjects',`Error occured. Please try again later`);
                         })
                     
                 }
             })
             .catch((e)=>{
                 console.log(`Error in getting the data from the completedProjects: ${e}`);
+                responses.error(req,res,'info','showProjects',`Error occured. Please try again later`);
             });
         })
         .catch((e)=>{
             console.log(`Error in getting the data from project db: ${e}`);
+            responses.error(req,res,'info','showProjects',`Error occured. Please try again later`);
         });
 
     }
@@ -220,18 +225,22 @@ exports.updateStatus = (req,res)=>{
                                 })
                                 .catch((e)=>{
                                     console.log(`Error in getting the data from db: ${e}`);
+                                    responses.error(req,res,'info','showProjects',`Error occured. Please try again later`);
                                 });
                             })
                             .catch((e)=>{
                                 console.log(`Error: ${e}`);
+                                responses.error(req,res,'info','showProjects',`Error occured. Please try again later`);
                             });
                         })
                         .catch((e)=>{
                             console.log(`Error in saving the project in completedProjects collection: ${e}`);
+                            responses.error(req,res,'info','showProjects',`Error occured. Please try again later`);
                         });
                     })
                     .catch((e)=>{
                         console.log(`Error in deleting the project ${title} from the onGoingProjects collection`);
+                        responses.error(req,res,'info','showProjects',`Error occured. Please try again later`);
                     });
                 }else{
                     // The project doesn't exist in the onGoingProjects collection
@@ -257,23 +266,28 @@ exports.updateStatus = (req,res)=>{
                                 })
                                 .catch((e)=>{
                                     console.log(`Error in getting the data from db: ${e}`);
+                                    responses.error(req,res,'info','showProjects',`Error occured. Please try again later`);
                                 });
                         })
                         .catch((e)=>{
                             console.log(`Error: ${e}`);
+                            responses.error(req,res,'info','showProjects',`Error occured. Please try again later`);
                         });
                     })
                     .catch((e)=>{
                         console.log(`Error in saving the project in completedProjects collection: ${e}`);
+                        responses.error(req,res,'info','showProjects',`Error occured. Please try again later`);
                     });
                 }
             })
             .catch((e)=>{
                 console.log(`Error in getting the data from the onGoingProjects: ${e}`);
+                responses.error(req,res,'info','showProjects',`Error occured. Please try again later`);
             });
         })
         .catch((e)=>{
             console.log(`Error in getting the data from project db: ${e}`);
+            responses.error(req,res,'info','showProjects',`Error occured. Please try again later`);
         });
     }
 }
@@ -288,6 +302,7 @@ exports.getAllProjects = (req,res)=>{
     })
     .catch((e)=>{
         console.log(`Error in getting the data from db: ${e}`);
+        responses.error(req,res,'info','showProjects',`Error occured. Please try again later`);
     });
 }
 
@@ -303,20 +318,17 @@ exports.suggestProject = (req,res) => {
                 titleArray.push(project.title);
             });
             const randomProject = titleArray[Math.floor(Math.random() * titleArray.length)];
-            req.flash('randomProject',`Let's go with : ${randomProject}`);
-            res.locals.message = req.flash();
-            res.render('home');
+            responses.error(req,res,'randomProject','home',`Let's go with : ${randomProject}`);
             //console.log(titleArray);
         }else{
-            console.log('There are no new projects in your list to be started.')
-            req.flash('noProject','There are no new Projects in your list to be started.')
-            res.locals.message = req.flash();
-            res.render('home');
+            console.log('There are no new projects in your list to be started.');
+            responses.error(req,res,'noProject','home',`There are no new Projects in your list to be started.`);
         }
         
         
     })
     .catch((e)=>{
         console.log(`${e}`);
+        responses.error(req,res,'noProject','home',`Error occured. Please try again later`);
     })
 }
