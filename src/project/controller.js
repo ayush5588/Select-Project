@@ -290,3 +290,33 @@ exports.getAllProjects = (req,res)=>{
         console.log(`Error in getting the data from db: ${e}`);
     });
 }
+
+
+exports.suggestProject = (req,res) => {
+    newProject
+    .find({status: 0})
+    .then((data)=>{
+        //console.log(data);
+        if(data.length>=1){
+            let titleArray = [];
+            data.forEach((project)=>{
+                titleArray.push(project.title);
+            });
+            const randomProject = titleArray[Math.floor(Math.random() * titleArray.length)];
+            req.flash('randomProject',`Let's go with : ${randomProject}`);
+            res.locals.message = req.flash();
+            res.render('home');
+            //console.log(titleArray);
+        }else{
+            console.log('There are no new projects in your list to be started.')
+            req.flash('noProject','There are no new Projects in your list to be started.')
+            res.locals.message = req.flash();
+            res.render('home');
+        }
+        
+        
+    })
+    .catch((e)=>{
+        console.log(`${e}`);
+    })
+}
