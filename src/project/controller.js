@@ -17,7 +17,7 @@ exports.addProject = (req,res)=>{
     const description = req.body.description;
 
     newProject
-    .findOne({title: title})
+    .findOne({userEmail:userEmail,title: title})
     .then((exists)=>{
         if(exists){
             responses.error(req,res,'info','addProject',`${title} already exists in your list`);
@@ -52,14 +52,15 @@ exports.addProject = (req,res)=>{
 
 // Updating the status of the existing project
 exports.updateStatus = (req,res)=>{
-    // The user can either mark the project as started or as completed
+    // The user can either mark the project as started or as completed AND he/she can also restart a project
     //const userEmail = req.session.email;
+    /* test email */ const userEmail = req.body.email;
     const status = req.body.status;
     const title = req.body.title;
 
     if(status == 'start'){
         newProject
-        .findOne({title: title})
+        .findOne({userEmail:userEmail,title: title})
         .then((response)=>{
             const project_id = response._id;
             // checking whether the project exists in the completed collection
@@ -82,7 +83,7 @@ exports.updateStatus = (req,res)=>{
                             console.log(`The project ${title} has been inserted into the onGoingProjects collection`);
                             //res.json({code: 1,message: `The status of project ${title} has been updated`});
                             newProject
-                            .findOneAndUpdate({title: title},{$set: {status: 1}})
+                            .findOneAndUpdate({userEmail:userEmail,title: title},{$set: {status: 1}})
                             .then((data)=>{
                                 console.log('Status has been updated');
                                 req.flash('info',`${title} status has been updated`);
@@ -143,7 +144,7 @@ exports.updateStatus = (req,res)=>{
                                     console.log(`The project ${title} has been inserted into the onGoingProjects collection`);
                                     //res.json({code: 1,message: `The status of project ${title} has been updated`});
                                     newProject
-                                    .findOneAndUpdate({title: title},{$set: {status: 1}})
+                                    .findOneAndUpdate({userEmail:userEmail,title: title},{$set: {status: 1}})
                                     .then((data)=>{
                                         console.log('Status has been updated');
                                         req.flash('info',`${title} status has been updated`);
@@ -190,7 +191,7 @@ exports.updateStatus = (req,res)=>{
     // the status of the project is completed
     else{
         newProject
-        .findOne({title: title})
+        .findOne({userEmail:userEmail,title: title})
         .then((response)=>{
             const project_id = response._id;
             // checking whether the project exists in the onGoingProjects collection
@@ -213,7 +214,7 @@ exports.updateStatus = (req,res)=>{
                             console.log(`The project ${title} has been inserted into the completedProjects collection`);
                             //res.json({code: 1,message: `The status of project ${title} has been updated`});
                             newProject
-                            .findOneAndUpdate({title: title},{$set: {status: 2}})
+                            .findOneAndUpdate({userEmail:userEmail,title: title},{$set: {status: 2}})
                             .then(()=>{
                                 console.log('Status has been updated');
                                 req.flash('info',`${title} status has been updated`);
@@ -254,7 +255,7 @@ exports.updateStatus = (req,res)=>{
                         console.log(`The project ${title} has been inserted into the completedProjects collection`);
                         //res.json({code: 1,message: `The status of project ${title} has been updated`});
                         newProject
-                        .findOneAndUpdate({title: title},{$set: {status: 2}})
+                        .findOneAndUpdate({userEmail:userEmail,title: title},{$set: {status: 2}})
                         .then((data)=>{
                             console.log('Status has been updated');
                             req.flash('info',`${title} status has been updated`);
@@ -295,8 +296,10 @@ exports.updateStatus = (req,res)=>{
 
 
 exports.getAllProjects = (req,res)=>{
+    // const email = req.session.email
+    const userEmail = req.body.email;
     newProject
-    .find({})
+    .find({userEmail:userEmail})
     .then((data)=>{
         res.render('showProjects',{projects: data});
     })
@@ -308,8 +311,10 @@ exports.getAllProjects = (req,res)=>{
 
 
 exports.suggestProject = (req,res) => {
+    // const email = req.session.email
+    const userEmail = req.body.email;
     newProject
-    .find({status: 0})
+    .find({userEmail:userEmail,status: 0})
     .then((data)=>{
         //console.log(data);
         if(data.length>=1){
