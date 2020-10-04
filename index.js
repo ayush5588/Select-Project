@@ -6,9 +6,11 @@ const flash = require('connect-flash');
 const cors = require('cors');
 const path = require('path');
 
+// ---------------------------------------------------
 require('dotenv/config');
 require('./model/connection');
 const app = express();
+// ---------------------------------------------------
 
 const sessionStore = new session.MemoryStore;
 app.use(session({
@@ -31,23 +33,32 @@ app.use(flash());
 app.use(cors());
 
 app.set('view engine','ejs');
+// ---------------------------------------------------
 
-app.use((req,res,next)=>{  // for removing the flash message after displaying it. 
-    res.locals.removeMessage = ()=>{   // removeMessage will be accessible globally
-        req.session.message = [];
+// for cases when the cookie remains in the user browser even if the user logged out
+app.use((req,res,next)=>{  
+    if(req.cookies.user_key && !req.session.user){
+        res.clearCookie(process.env.SESSION_KEY);
     }
     next();
 });
 
+
+// --------------------------------------------------
 const project = require('./src/project/index');
+const signup = require('./src/signUp/index');
+const login = require('./src/login/index');
+
 app.use('/project',project);
+app.use('/user',signup);
+app.use('/user',login);
+// ---------------------------------------------------
 
 app.get('/',(req,res)=>{
     res.render('home');
 });
 
-
-
+// ---------------------------------------------------
 const PORT = process.env.PORT || 8000;
 app.listen(PORT,(e)=>{
     if(!e){
@@ -55,4 +66,4 @@ app.listen(PORT,(e)=>{
     }else{
         console.log(e);
     }
-})
+});
