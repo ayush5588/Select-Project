@@ -50,8 +50,8 @@ const signup = require('./src/signUp/index');
 const login = require('./src/login/index');
 
 app.use('/project',project);
-app.use('/user',signup);
-app.use('/user',login);
+app.use('/',signup);
+app.use('/',login);
 // ---------------------------------------------------
 
 app.get('/',(req,res)=>{

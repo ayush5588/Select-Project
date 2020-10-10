@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Home</title>
+        <meta name="description" content="Home page of the website">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+    </head>
+
+        <h1>Welcome to Select Project</h1>
+        <form action="/project/add" method="GET">
+            <input type="submit" value="Add Project">
+        </form>
+        </br>
+        <form action="/project/all" method="POST">
+            <input type="submit" value="Get all projects">
+        </form>
+        </br>
+        <form action="/project/suggest" method="POST">
+            <input type="submit" value="Suggest Project">
+        </form>
+    </br>
+    <form action="/logout" method="POST">
+        <input type="submit" value="Logout">
+    </form>
+        </br>
+        <% if(locals.message){%>
+            <% if(message.randomProject) {%>
+            <h4><b><%=message.randomProject%></b></h4>
+            <%} else {%>
+                <h4><b><%=message.noProject%></b></h4>
+            <% } %>
+        <%}%>
+    </body>
+</html>

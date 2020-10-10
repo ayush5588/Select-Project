@@ -6,11 +6,11 @@ const userSchema = require('../../model/user').newUser;
 const responses = require('../middleware/responses');
 
 exports.login = (req,res) => {
-    const userName = req.body.username;
+    const email = req.body.email;
     const password = req.body.password;
 
     userSchema
-    .findOne({userName: userName})
+    .findOne({email: email})
     .then((user)=>{
         
         const hashedPassword = user.password;
@@ -34,7 +34,7 @@ exports.login = (req,res) => {
 
     })
     .catch((e)=>{
-        console.log(`error in querying the db for username: ${e}`);
+        console.log(`error in querying the db for email: ${e}`);
         responses.error(req,res,'error','login','Error occured. Please try again later');
     });
 

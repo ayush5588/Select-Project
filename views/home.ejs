@@ -9,25 +9,13 @@
     </head>
 
         <h1>Welcome to Select Project</h1>
-        <form action="/project/login" method="POST">
+        <form action="/login" method="POST">
             <label>LOGIN</label></br>
             <input type="submit" value="LOGIN">
         </form>
-        <form action="/project/signup" method="POST">
+        <form action="/signup" method="POST">
             <label>SIGNUP</label></br>
             <input type="submit" value="SIGNUP">
-        </form>
-        </br>
-        <form action="/project/add" method="GET">
-            <input type="submit" value="Add Project">
-        </form>
-        </br>
-        <form action="/project/all" method="POST">
-            <input type="submit" value="Get all projects">
-        </form>
-        </br>
-        <form action="/project/suggest" method="POST">
-            <input type="submit" value="Suggest Project">
         </form>
         </br>
         <% if(locals.message){%>

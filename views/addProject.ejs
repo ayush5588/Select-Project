@@ -9,8 +9,6 @@
     </head>
     <body>
         <form action="/project/add" method="POST">
-            <label>Email</label>
-            <input type="email" name="email">
             <label>Title</label>
             <input type="text" name="title">
             <label>Description</label>
@@ -21,7 +19,6 @@
             <div class="alert alert-success" role="alert">
                 <%=message.info%>
             </div>
-            <%=removeMessage();%>
         <%}%>
     </br>
     <form action="/" method="GET">

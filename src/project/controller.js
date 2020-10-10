@@ -11,8 +11,9 @@ const responses = require('../middleware/responses');
 // Adding a new project
 exports.addProject = (req,res)=>{
     const uid = shortID.generate();
-    //const userEmail = req.session.email;
-    const userEmail = req.body.email;
+    const userEmail = req.session.user;
+    console.log(userEmail);
+    //const userEmail = req.body.email;
     const title = req.body.title;
     const description = req.body.description;
 
@@ -53,8 +54,8 @@ exports.addProject = (req,res)=>{
 // Updating the status of the existing project
 exports.updateStatus = (req,res)=>{
     // The user can either mark the project as started or as completed AND he/she can also restart a project
-    //const userEmail = req.session.email;
-    /* test email */ const userEmail = req.body.email;
+    const userEmail = req.session.user;
+    // test email const userEmail = req.body.email;
     const status = req.body.status;
     const title = req.body.title;
 
@@ -89,7 +90,7 @@ exports.updateStatus = (req,res)=>{
                                 req.flash('info',`${title} status has been updated`);
                                 res.locals.message = req.flash();
                                 newProject
-                                .find({})
+                                .find({userEmail: userEmail})
                                 .then((data)=>{
                                     res.render('showProjects',{projects: data});
                                 })
@@ -124,7 +125,7 @@ exports.updateStatus = (req,res)=>{
                                 req.flash('info',`${title} status has been updated`);
                                 res.locals.message = req.flash();
                                 newProject
-                                .find({})
+                                .find({userEmail: userEmail})
                                 .then((data)=>{
                                     res.render('showProjects',{projects: data});
                                 })
@@ -150,7 +151,7 @@ exports.updateStatus = (req,res)=>{
                                         req.flash('info',`${title} status has been updated`);
                                         res.locals.message = req.flash();
                                         newProject
-                                        .find({})
+                                        .find({userEmail: userEmail})
                                         .then((data)=>{
                                             res.render('showProjects',{projects: data});
                                         })
@@ -220,7 +221,7 @@ exports.updateStatus = (req,res)=>{
                                 req.flash('info',`${title} status has been updated`);
                                 res.locals.message = req.flash();
                                 newProject
-                                .find({})
+                                .find({userEmail: userEmail})
                                 .then((data)=>{
                                     res.render('showProjects',{projects: data});
                                 })
@@ -261,7 +262,7 @@ exports.updateStatus = (req,res)=>{
                             req.flash('info',`${title} status has been updated`);
                             res.locals.message = req.flash();
                             newProject
-                                .find({})
+                                .find({userEmail: userEmail})
                                 .then((data)=>{
                                     res.render('showProjects',{projects: data});
                                 })
@@ -296,8 +297,8 @@ exports.updateStatus = (req,res)=>{
 
 
 exports.getAllProjects = (req,res)=>{
-    // const email = req.session.email
-    const userEmail = req.body.email;
+    const userEmail = req.session.user;
+    //const userEmail = req.body.email;
     newProject
     .find({userEmail:userEmail})
     .then((data)=>{
@@ -311,8 +312,8 @@ exports.getAllProjects = (req,res)=>{
 
 
 exports.suggestProject = (req,res) => {
-    // const email = req.session.email
-    const userEmail = req.body.email;
+     const userEmail = req.session.user;
+    //const userEmail = req.body.email;
     newProject
     .find({userEmail:userEmail,status: 0})
     .then((data)=>{
@@ -323,11 +324,11 @@ exports.suggestProject = (req,res) => {
                 titleArray.push(project.title);
             });
             const randomProject = titleArray[Math.floor(Math.random() * titleArray.length)];
-            responses.error(req,res,'randomProject','home',`Let's go with : ${randomProject}`);
+            responses.error(req,res,'randomProject','userMain',`Let's go with : ${randomProject}`);
             //console.log(titleArray);
         }else{
             console.log('There are no new projects in your list to be started.');
-            responses.error(req,res,'noProject','home',`There are no new Projects in your list to be started.`);
+            responses.error(req,res,'noProject','userMain',`There are no new Projects in your list to be started.`);
         }
         
         

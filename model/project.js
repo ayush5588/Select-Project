@@ -5,7 +5,7 @@ const Schema = mongoose.Schema;
 const NewProject = new Schema({
     uid: {type: String, unique: true, required: true},
     userEmail: {type: String,required: true},
-    title: {type: String, unique: true, required: true},
+    title: {type: String,required: true},
     description: {type: String},
     status: {type: Number,required: true}   // 0 = Added,  1 = started,  2 = completed
 },{timestamps: true});
