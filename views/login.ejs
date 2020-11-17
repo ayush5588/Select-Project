@@ -6,19 +6,30 @@
         <title>Login</title>
         <meta name="description" content="User Login Page">
         <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="../public/login.css">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
     </head>
     <body>
-        <form action="/login" method="POST">
-            <label for="email">Email</label>
-            <input type="text" id="email" name="email" required="true">
-            <label for="password">Password</label>
-            <input type="password" id="password" name="password" required="true">
-            <input type="submit" value="Login">
-        </form>
-
-        <% if(locals.message){%>
-            <p><%=message.error%></p>
-        <% } %>
-
+        <div class="container">
+            <h2>LOGIN</h2></br>
+            <form action="/login" method="POST">
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="text" id="email" class="form-control input-sm" name="email" placeholder="Enter email..." required="true">
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" class="form-control input-sm" placeholder="Enter password..." name="password" required="true">
+                </div>
+                <button type="submit" class="btn btn-default">LOGIN</button>
+            </form>
+            <div id="error-message">
+                <% if(locals.message){%>
+                    <p><%=message.error%></p>
+                <% } %>
+            </div>
+            
+        </div>
+        
     </body>
 </html>

@@ -6,16 +6,24 @@
         <title>Home</title>
         <meta name="description" content="Home page of the website">
         <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="index.css">
+        <link rel="preconnect" href="https://fonts.gstatic.com">
+        <link href="https://fonts.googleapis.com/css2?family=Pangolin&family=Merriweather:wght@700display=swap" rel="stylesheet">
     </head>
         <h1 id="main-heading">SELECT PROJECT</h1>
-        <form action="/login" method="GET">
-            <label>LOGIN</label></br>
-            <input type="submit" value="LOGIN">
-        </form>
-        <form action="/signup" method="GET">
-            <label>SIGNUP</label></br>
-            <input type="submit" value="SIGNUP">
-        </form>
+        <div class="home-form">
+            <div class="login-register">
+                <form action="/login" method="GET">
+                    <b><input type="submit" value="LOGIN"></b>
+                </form>
+            </div>
+            <div class="login-register">
+                <form action="/signup" method="GET">
+                    <b><input type="submit" value="SIGNUP"></b>
+                </form>
+            </div>
+        </div>
+        
         </br>
     </body>
 </html>

@@ -6,25 +6,39 @@
         <title>Signup</title>
         <meta name="description" content="User Login Page">
         <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+        <link rel="stylesheet" href="../public/signup.css">
     </head>
     <body>
-        <form action="/signup" method="POST">
-            <label for="email">Email</label>
-            <input type="text" id="email" name="email" required="true">
-            <label for="username">Username</label>
-            <input type="text" id="username" name="username" required="true">
-            <label for="password">Password</label>
-            <input type="password" id="password" name="password" required="true">
-            <input type="submit" value="Signup">
-        </form>
-
-        <% if(locals.message){%>
-            <% if(message.success) {%>
-                <p><%=message.success%></p>
-            <%} else {%>
-                <p><%=message.error%></p>
-            <% } %>
-        <% } %>
-
+        <div class="container">
+            <h2>SIGNUP</h2></br>
+            <form action="/signup" method="POST">
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="text" id="email" class="form-control input-sm" name="email" placeholder="Enter email..." required="true">
+                </div>
+                <div class="form-group">
+                    <label for="username">Username</label>
+                    <input type="text" id="username" class="form-control input-sm" name="username" placeholder="Enter usrname..." required="true">
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" class="form-control input-sm" placeholder="Enter password..." name="password" required="true">
+                </div>
+                <button type="submit" class="btn btn-default">SIGNUP</button>
+            </form>
+            <form action="/login" method="GET">
+                <button type="submit" class="btn btn-default">LOGIN Page</button>
+            </form>
+            <div id="message">
+                <% if(locals.message){%>
+                    <% if(message.success) {%>
+                        <p><%=message.success%></p>
+                    <%} else {%>
+                        <p><%=message.error%></p>
+                    <% } %>
+                <% } %>
+            </div>
+        </div>
     </body>
 </html>

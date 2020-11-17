@@ -1,0 +1,27 @@
+* {
+    margin: 0px;
+    padding: 0px;
+    width: 100%;
+    height: auto;
+}
+
+body {
+    background-color: white;
+}
+
+button {
+    width: 100px;
+}
+
+#email {
+    width: 70%;
+}
+#password {
+    width: 70%;
+}
+
+#error-message {
+    margin: 20px 20px 20px 0;
+    font-size: 1.6rem;
+    font-weight: bold;
+}

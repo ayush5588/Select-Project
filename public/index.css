@@ -1,0 +1,35 @@
+* {
+    margin: 0px;
+    padding: 0px;
+}
+
+body {
+    background-color: #AFCDD5;
+}
+
+#main-heading {
+    color: #272932;
+    margin: 2rem;
+    font-size: 3rem;
+    text-decoration: solid;
+    font-family: 'Merriweather',serif;
+}
+
+
+.login-register {
+    margin: 20px;
+    padding: 15px;
+    font-size: 2rem;
+    text-align: center;
+    display: inline-block;
+}
+
+.login-register input {
+    background-color: #DE354C;
+    padding: 30px;
+    border: 2px solid black;
+    border-radius: 1.3rem;
+    font-size: 20px;
+    font-weight: bold;
+    font-family: 'Pangolin',cursive;
+}
