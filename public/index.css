@@ -24,7 +24,7 @@ body {
     display: inline-block;
 }
 
-.login-register input {
+.login-register button {
     background-color: #DE354C;
     padding: 30px;
     border: 2px solid black;
