@@ -55,7 +55,7 @@ app.use('/',login);
 // ---------------------------------------------------
 
 app.get('/',(req,res)=>{
-    res.render('home');
+    res.sendFile(path.join(__dirname + "/public/index.html"));
 });
 
 // ---------------------------------------------------
