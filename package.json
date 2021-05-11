@@ -30,7 +30,7 @@
     "mongoose": "^5.10.6",
     "morgan": "^1.10.0",
     "pm2": "^4.5.0",
-    "sanitize-html": "^1.27.4",
+    "sanitize-html": "^2.3.2",
     "shortid": "^2.2.15"
   },
   "devDependencies": {
