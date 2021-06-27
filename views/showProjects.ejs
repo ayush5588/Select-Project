@@ -61,5 +61,9 @@
         <% if (locals.message) {%>
             <p><b><%=message.info%></b></p>
         <%}%>
+
+        <form action="/project/userMain" method="GET">
+            <input type="submit" value="HOME">
+        </form>
     </body>
 </html>

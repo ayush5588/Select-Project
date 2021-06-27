@@ -11,8 +11,9 @@ const responses = require('../middleware/responses');
 // Adding a new project
 exports.addProject = (req,res)=>{
     const uid = shortID.generate();
+    console.log(req.session);
     const userEmail = req.session.user;
-    console.log(userEmail);
+    //console.log(userEmail);
     //const userEmail = req.body.email;
     const title = req.body.title;
     const description = req.body.description;
@@ -55,6 +56,7 @@ exports.addProject = (req,res)=>{
 exports.updateStatus = (req,res)=>{
     // The user can either mark the project as started or as completed AND he/she can also restart a project
     const userEmail = req.session.user;
+    console.log(userEmail);
     // test email const userEmail = req.body.email;
     const status = req.body.status;
     const title = req.body.title;
@@ -298,6 +300,7 @@ exports.updateStatus = (req,res)=>{
 
 exports.getAllProjects = (req,res)=>{
     const userEmail = req.session.user;
+    console.log(userEmail);
     //const userEmail = req.body.email;
     newProject
     .find({userEmail:userEmail})

@@ -19,8 +19,9 @@ exports.login = (req,res) => {
         .then((result)=>{
             if(result == true){
                 console.log('Logged In');
-                req.session.user = user.email;
+                req.session.user = email;
                 req.session.loggedIn = true;
+                console.log(req.session);
                 res.render('userMain');
             }else{
                 console.log(`Incorrect Password`);
@@ -45,5 +46,5 @@ exports.logout = (req,res) => {
     req.session.loggedIn = false;
     req.session.destroy(); // destroying the session
     res.clearCookie(process.env.SESSION_KEY);  // clearing the cookie from the client browser
-    res.render('home');  // redirecting the user to home page
+    res.redirect('/');  // redirecting the user to home page
 }

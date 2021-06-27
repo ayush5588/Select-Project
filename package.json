@@ -18,6 +18,7 @@
   },
   "homepage": "https://github.com/ayush5588/Select-Project#readme",
   "dependencies": {
+    "allmiddle": "^1.0.3",
     "bcrypt": "^5.0.0",
     "connect-flash": "^0.1.1",
     "cookie-parser": "^1.4.5",

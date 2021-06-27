@@ -5,16 +5,17 @@ const logger = require('morgan');
 const flash = require('connect-flash');
 const cors = require('cors');
 const path = require('path');
-
+const allmiddle = require('allmiddle').includeAllMiddle;
 // ---------------------------------------------------
-require('dotenv/config');
-require('./model/connection');
+//require('dotenv/config');
+//require('./model/connection');
 const app = express();
+require('./model/connection');
 // ---------------------------------------------------
-
+//app.set('trust proxy',true);
 const sessionStore = new session.MemoryStore;
 app.use(session({
-    cookie: {maxAge: 60000},
+    cookie: {maxAge: 900000,httpOnly: true},
     saveUninitialized: false,
     key: process.env.SESSION_KEY,
     secret: process.env.SESSION_SECRET,
@@ -22,15 +23,17 @@ app.use(session({
     resave: false
 }));
 
-app.use(express.static('public'));
+app.set("views", __dirname + "/views");
+allmiddle(app);
+/* app.use(express.static('public'));
 app.use(express.static(__dirname));
-app.set("views", __dirname + "/views"); 
 app.use(express.json());
 app.use(cookieParser());
 app.use(logger('dev'));
 app.use(express.urlencoded({extended: true}));
-app.use(flash());
 app.use(cors());
+ */
+app.use(flash());
 
 app.set('view engine','ejs');
 // ---------------------------------------------------
